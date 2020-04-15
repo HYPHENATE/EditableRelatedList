@@ -5,8 +5,8 @@
     <fieldManageability>SubscriberControlled</fieldManageability>
     <label>Child Object</label>
     <referenceTo>EntityDefinition</referenceTo>
-    <relationshipLabel>ERL_Meta1</relationshipLabel>
-    <relationshipName>ERL_Meta1</relationshipName>
+    <relationshipLabel>SObjectMetaData1</relationshipLabel>
+    <relationshipName>SObjectMetaData1</relationshipName>
     <required>false</required>
     <type>MetadataRelationship</type>
     <unique>false</unique>

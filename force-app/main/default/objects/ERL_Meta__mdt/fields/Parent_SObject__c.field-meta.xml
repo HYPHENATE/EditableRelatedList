@@ -6,8 +6,8 @@
     <inlineHelpText>Specify the parent SObject Name for the related list</inlineHelpText>
     <label>Parent Object</label>
     <referenceTo>EntityDefinition</referenceTo>
-    <relationshipLabel>ERL_Meta</relationshipLabel>
-    <relationshipName>ERL_Meta</relationshipName>
+    <relationshipLabel>SObjectMetaData</relationshipLabel>
+    <relationshipName>SObjectMetaData</relationshipName>
     <required>false</required>
     <type>MetadataRelationship</type>
     <unique>false</unique>
