@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parent_SObject__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>Specify the parent SObject Name for the related list</inlineHelpText>
+    <label>Parent Object</label>
+    <referenceTo>EntityDefinition</referenceTo>
+    <relationshipLabel>ERL_Meta</relationshipLabel>
+    <relationshipName>ERL_Meta</relationshipName>
+    <required>false</required>
+    <type>MetadataRelationship</type>
+    <unique>false</unique>
+</CustomField>

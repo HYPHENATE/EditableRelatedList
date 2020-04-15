@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed> 
+    <targets>
+      <target>lightning__RecordPage</target>
+      <target>lightning__AppPage</target>
+      <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+       <targetConfig targets="lightning__AppPage, lightning__HomePage,lightning__RecordPage ">
+            <property name="metadataName" type="String" label="Child Object Label" required="true" placeholder="'Contact' OR 'MY_Custom_Object__c'" description="Enter the LABEL of the Object to show, NOT the API Name"/>
+            <property name="strTitle" type="String" label="List Title" description="Enter a Title for your Related List"/>
+            <property name="strIcon" type="String" label="List Icon" datasource="standard:account,standard:address,standard:all,standard:announcement,standard:app,standard:apps,standard:approval,standard:article,standard:assignment,standard:business_hours,standard:call_history,standard:call,standard:campaign_members,standard:campaign,standard:case,standard:category,standard:channel_programs,standard:client,standard:coaching,standard:contact,standard:currency,standard:custom_notification,standard:customers,standard:decision,standard:document,standard:education,standard:email,standard:endorsement,standard:entity,standard:event,standard:feedback,standard:forecasts,standard:groups,standard:household,standard:knowledge,standard:lead,standard:live_chat,standard:link,standard:multi_picklist,standard:operating_hours,standard:orders,standard:partners,standard:password,standard:people,standard:performance,standard:planogram,standard:post,standard:product_item,standard:product,standard:product_transfer,standard:product_required,standard:queue,standard:record_create,standard:related_list,standard:relationship,standard:recycle_bin,standard:record,standard:service_crew,standard:settings,standard:shift,standard:shipment,standard:social,standard:stage,standard:store,standard:steps,standard:survey,standard:task,standard:team_member,standard:text,standard:thanks,standard:timesheet,standard:topic,standard:topic2,standard:user,standard:visits,standard:waits,standard:work_order,standard:work_order_item"/>        
+            <property name="setHeight" type="String" label="List Height" description="Enter the height in your preferred measurment. Eg: 300px OR 15rem" placeholder="250px"/>
+            <property name="newButton" type="Boolean" label="Display New Button" description="Used for creating new records" default="true"/>
+            </targetConfig>     
+    </targetConfigs>  
+</LightningComponentBundle>

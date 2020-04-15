@@ -1,0 +1,30 @@
+<!-- H8 Editable Related List -- Version: 1.1
+-- Authors:     phil@hyphen8.com / david.bradburn@hyphen8.com
+-- Updates:     06/03/2020 - Initial version
+--              10/03/2020 - Created New Record Buttn with toggle in UI-->
+<template>
+    <lightning-card class="slds-text-heading_small slds-page-header_related-list" title={strTitle} icon-name={strIcon}>
+        <template if:true={newButton}>
+                <lightning-button label="New" title="New" onclick={createNewRecord} slot="actions" variant="Neutral" class="slds-m-right_x-small"></lightning-button>
+        </template>
+        <div class="slds-scrollable" style={setHeightValue}>
+            <div class="exampleHolder">
+                <template if:true={loaded}>
+                    <lightning-datatable
+                            key-field="Id"
+                            data={data}
+                            show-row-number-column   
+                            columns={columns}      
+                            draft-values={draftValues}              
+                            selected-rows={preSelectedRows}
+                            hide-checkbox-column                  
+                            onsave={handleSave}>
+                    </lightning-datatable>
+                </template>
+                <template if:false={loaded}>
+                    <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                </template>
+            </div>
+        </div> 
+    </lightning-card>
+</template>
