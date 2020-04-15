@@ -9,8 +9,16 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>ERL_Meta__mdt-ERL Meta Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
         <members>editableRelatedList</members>
         <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>ERL_Meta_Access</members>
+        <name>PermissionSet</name>
     </types>
     <version>48.0</version>
 </Package>

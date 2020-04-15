@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>ERL_Meta__mdt</name>
+    </customMetadataTypeAccesses>
+    <description>Permission set to provide access to the ERL Meta Data</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ERL Meta Access</label>
+</PermissionSet>
