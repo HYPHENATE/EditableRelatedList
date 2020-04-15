@@ -7,8 +7,8 @@
     <label>Child Field</label>
     <metadataRelationshipControllingField>ERL_Meta__mdt.Parent_SObject__c</metadataRelationshipControllingField>
     <referenceTo>FieldDefinition</referenceTo>
-    <relationshipLabel>ERL_Meta</relationshipLabel>
-    <relationshipName>ERL_Meta</relationshipName>
+    <relationshipLabel>SObjectMetaData3</relationshipLabel>
+    <relationshipName>SObjectMetaData3</relationshipName>
     <required>false</required>
     <type>MetadataRelationship</type>
     <unique>false</unique>
