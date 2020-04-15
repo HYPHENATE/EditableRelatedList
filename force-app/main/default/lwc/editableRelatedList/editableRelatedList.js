@@ -6,10 +6,12 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 import { NavigationMixin } from 'lightning/navigation';
 
+// defining columns for lightning data table
 const columns = [];
 
 export default class EditableRelatedList extends NavigationMixin(LightningElement) {
 
+    // defined api variables
     @api metadataName; 
     @api recordId;
     @api strTitle;                  // UI Defined Related List Title
@@ -18,7 +20,9 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
     @api newButton;                 // UI Defined Related List New Button
     @api defaultvalues;
     @api sObjectAPIName;
-    @api sObjectParentField;  
+    @api sObjectParentField;
+    
+    // tracked variables
     @track columns = columns;
     @track data;
     @track draftValues = [];
@@ -26,6 +30,7 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
     @track setHeightValue;
     wiredResult;
     
+    // wire service to pull in the data
     @wire(getSObjectInfo, { metadataName: '$metadataName', theId: '$recordId' })
     sobjectData(result) { 
 
@@ -72,6 +77,7 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
 
     }
 
+    // method to handle the creation of a new record
     createNewRecord() {
         this.defaultvalues = new String(this.sObjectParentField + '=' +  this.recordId);
        
@@ -90,46 +96,47 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
         });
     }
 
-resizeComponent(){
-    console.log('in resizeComoponent' + this.setHeight);
-    // Keeping correct height following save 
-    if(this.setHeight == null || this.setHeight == '' || this.setHeight == 'undefined'){
-        this.setHeightValue = 'Height: 250px';
-    } else {
-        this.setHeightValue = 'Height:' + this.setHeight; 
+    // method to handle the resizing of the component
+    resizeComponent(){
+        console.log('in resizeComoponent' + this.setHeight);
+        // Keeping correct height following save 
+        if(this.setHeight == null || this.setHeight == '' || this.setHeight == 'undefined'){
+            this.setHeightValue = 'Height: 250px';
+        } else {
+            this.setHeightValue = 'Height:' + this.setHeight; 
+        }
     }
-}
 
-handleSave(event) {
+    //method to hande the save
+    handleSave(event) {
+        
+        let draftValues = event.detail.draftValues;
+
+        const recordInputs = event.detail.draftValues.slice().map(draft => {
+            const fields = Object.assign({}, draft);
+            return { fields };
+        });
+
+        const promises = recordInputs.map(recordInput => updateRecord(recordInput));
     
-    let draftValues = event.detail.draftValues;
+        Promise.all(promises).then(objectRecs => {
+            console.log('in here');
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: this.metadataName + '(s) successfully updated',
+                    variant: 'success'
+                })
+            );
+            // Clear all draft values
+            this.draftValues = [];
+            this.setHeightValue = null;
 
-    const recordInputs = event.detail.draftValues.slice().map(draft => {
-        const fields = Object.assign({}, draft);
-        return { fields };
-    });
+            return refreshApex(this.wiredResult);
 
-    const promises = recordInputs.map(recordInput => updateRecord(recordInput));
-  
-    Promise.all(promises).then(objectRecs => {
-        console.log('in here');
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: this.metadataName + '(s) successfully updated',
-                variant: 'success'
-            })
-        );
-         // Clear all draft values
-        this.draftValues = [];
-        this.setHeightValue = null;
-
-        return refreshApex(this.wiredResult);
-
-        }).catch(error => {
-            console.log('error ' + JSON.stringify(error));// Handle error
-    });
-    this.loaded = !this.loaded;
-
+            }).catch(error => {
+                console.log('error ' + JSON.stringify(error));// Handle error
+        });
+        this.loaded = !this.loaded;
     }  
 }

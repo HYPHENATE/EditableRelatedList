@@ -9,6 +9,25 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>ERL_Meta.Account_AccountNumber</members>
+        <members>ERL_Meta.Account_Name</members>
+        <members>ERL_Meta.Account_NumberOfEmployees</members>
+        <members>ERL_Meta.Account_Phone</members>
+        <members>ERL_Meta.Account_Website</members>
+        <members>ERL_Meta.Account_Where</members>
+        <members>ERL_Meta.Contact_Birthdate</members>
+        <members>ERL_Meta.Contact_Do_Not_Contact</members>
+        <members>ERL_Meta.Contact_Email</members>
+        <members>ERL_Meta.Contact_Full_Name</members>
+        <members>ERL_Meta.Contact_Title</members>
+        <members>ERL_Meta.Contact_Where</members>
+        <members>ERL_Meta.Opportunity_Amount</members>
+        <members>ERL_Meta.Opportunity_Name</members>
+        <members>ERL_Meta.Opportunity_Probability</members>
+        <members>ERL_Meta.Opportunity_Where</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
         <members>ERL_Meta__mdt-ERL Meta Layout</members>
         <name>Layout</name>
     </types>

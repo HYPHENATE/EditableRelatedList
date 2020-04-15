@@ -3,12 +3,12 @@
     <fullName>SObjectField__c</fullName>
     <externalId>false</externalId>
     <fieldManageability>SubscriberControlled</fieldManageability>
-    <inlineHelpText>Use this field to specify a field to display on the editable related list</inlineHelpText>
+    <inlineHelpText>Specify the field you want to output on screen or for where clause the field you want to use to determine that this is the lookup relationship reference field</inlineHelpText>
     <label>Child Field</label>
-    <metadataRelationshipControllingField>ERL_Meta__mdt.Parent_SObject__c</metadataRelationshipControllingField>
+    <metadataRelationshipControllingField>ERL_Meta__mdt.SObject__c</metadataRelationshipControllingField>
     <referenceTo>FieldDefinition</referenceTo>
-    <relationshipLabel>SObjectMetaData3</relationshipLabel>
-    <relationshipName>SObjectMetaData3</relationshipName>
+    <relationshipLabel>SObjectMetaData</relationshipLabel>
+    <relationshipName>SObjectMetaData</relationshipName>
     <required>false</required>
     <type>MetadataRelationship</type>
     <unique>false</unique>

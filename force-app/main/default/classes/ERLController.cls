@@ -17,120 +17,125 @@ public with sharing class ERLController {
     @AuraEnabled(cacheable=true)
     public static Map<String, Map<String, List<SObject>>> getsObjectInfo(String metadataName, String theId){
 
-         Map<String, Map<String, List<SObject>>> mapReturnData =  new Map<String, Map<String, List<SObject>>>();
-         String sobjectAPIName;
-
-         String getId = theId;
-         String soqlStatement = 'SELECT id,';
-    
-         id parentId = theId;
-
-         system.debug('metadataname is  ' + metadataname);
-         system.debug('theId is  ' + theId);
-
-         String parentObject = parentId.getsobjecttype().getDescribe().getName();
-
-         String result = '';
+          Map<String, Map<String, List<SObject>>> mapReturnData =  new Map<String, Map<String, List<SObject>>>();
+          try {
          
-         Map<String, List<sobject>> mapAllData = new Map<String, List<sobject>>();
-         JSONGenerator jsonGen = JSON.createGenerator(true);
-         jsonGen.writeStartArray();
+               String sobjectAPIName;
 
-         for(ERL_Meta__mdt ERLMeta : [SELECT Id, SObjectField__r.QualifiedAPIName, SObjectField__r.DataType, SObjectField__r.MasterLabel, SObject__c, SObject__r.QualifiedAPIName, Editable__c, order__c
-                                                 FROM ERL_Meta__mdt 
-                                                 WHERE SObject__r.MasterLabel = :metadataName                                   
-                                                 AND  Visible__c = true
-                                                 AND  Parent_SObject__c = null
-                                                 ORDER BY Order__c ASC]){
-              String fieldType;
-              sobjectAPIName = String.valueof(ERLMeta.SObject__r.QualifiedAPIName);                                      
-
-              soqlStatement += ERLMeta.SObjectField__r.QualifiedAPIName + ',';
-              fieldType = 'text';
-         
-              system.debug('ERLMeta.SObjectField__r.DataType ' + ERLMeta.SObjectField__r.DataType);
-
-              if(ERLMeta.SObjectField__r.DataType.contains('Text') || ERLMeta.SObjectField__r.DataType.contains('Name')) {
-                   fieldType = 'text';
-              }
-
-              if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Email')){
-                   fieldType = 'email';
-              }
-
-              if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Url')){
-                   fieldType = 'url';
-              }
-
-              if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Number')){
-                   fieldType = 'number';
-              }
-              
-              if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Currency')){
-                   fieldType = 'currency';
-              }
-
-              if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Date')){
-                   fieldType = 'date';
-              }
-
-              if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('phone')){
-                   fieldType = 'phone';
-              }
-
-              if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('checkbox')){
-                   fieldType = 'boolean';
-              }
-
-              if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('percent')){
-                   fieldType = 'percent';
-              }
+               String getId = theId;
+               String soqlStatement = 'SELECT id,';
           
-                
-              jsonGen.writeStartObject();
-        
-              jsonGen.writeStringField('label', ERLMeta.SObjectField__r.MasterLabel);
-         
-              jsonGen.writeStringField('type',  fieldType);
-         
-              jsonGen.writeStringField('fieldName', ERLMeta.SObjectField__r.QualifiedAPIName);
-       
-              if(ERLMeta.Editable__c){
-                   jsonGen.writeStringField('editable', 'true' );
-              }
-         
-              jsonGen.writeEndObject();
-         }
+               id parentId = theId;
 
-         jsonGen.writeEndArray();
+               system.debug('metadataname is  ' + metadataname);
+               system.debug('theId is  ' + theId);
 
-         soqlStatement = soqlStatement.removeEnd(',');
+               String parentObject = parentId.getsobjecttype().getDescribe().getName();
 
-         system.debug('soqlStatement is ' + soqlStatement);
+               String result = '';
+               
+               Map<String, List<sobject>> mapAllData = new Map<String, List<sobject>>();
+               JSONGenerator jsonGen = JSON.createGenerator(true);
+               jsonGen.writeStartArray();
 
-         ERL_Meta__mdt ERL_Datawhereclause = [SELECT SObjectField__r.QualifiedAPIName, SObject__r.QualifiedAPIName
-                                                           FROM ERL_Meta__mdt
-                                                           WHERE SObject__r.MasterLabel =  :metadataName
-                                                           AND Parent_SObject__r.QualifiedAPIName = :parentObject];
+               for(ERL_Meta__mdt ERLMeta : [SELECT Id, SObjectField__r.QualifiedAPIName, SObjectField__r.DataType, SObjectField__r.MasterLabel, SObject__c, SObject__r.QualifiedAPIName, Editable__c, order__c
+                                                       FROM ERL_Meta__mdt 
+                                                       WHERE SObject__r.MasterLabel = :metadataName                                   
+                                                       AND  Visible__c = true
+                                                       AND  Parent_SObject__c = null
+                                                       ORDER BY Order__c ASC]){
+                    String fieldType;
+                    sobjectAPIName = String.valueof(ERLMeta.SObject__r.QualifiedAPIName);                                      
 
-         soqlStatement += ' FROM ' + ERL_Datawhereclause.SObject__r.QualifiedAPIName + ' WHERE ' + ERL_Datawhereclause.SObjectField__r.QualifiedAPIName + ' = :getId';
-       
-                  
-         List<sObject> sobjList = Database.query(soqlStatement);
+                    soqlStatement += ERLMeta.SObjectField__r.QualifiedAPIName + ',';
+                    fieldType = 'text';
+               
+                    system.debug('ERLMeta.SObjectField__r.DataType ' + ERLMeta.SObjectField__r.DataType);
 
-    
-         String dataColumns = jsonGen.getAsString();
+                    if(ERLMeta.SObjectField__r.DataType.contains('Text') || ERLMeta.SObjectField__r.DataType.contains('Name')) {
+                         fieldType = 'text';
+                    }
 
-         sobjectAPIName += ';' +  ERL_Datawhereclause.SObjectField__r.QualifiedAPIName;
+                    if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Email')){
+                         fieldType = 'email';
+                    }
 
-         mapAllData.put(dataColumns, sobjList);
+                    if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Url')){
+                         fieldType = 'url';
+                    }
 
-         // New Map defined key = Contact, value is the map of the columns and data
-         mapReturnData.put(sobjectAPIName, mapAllData);
+                    if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Number')){
+                         fieldType = 'number';
+                    }
+                    
+                    if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Currency')){
+                         fieldType = 'currency';
+                    }
 
-         system.debug('mapAllData is ' + mapAllData);
+                    if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('Date')){
+                         fieldType = 'date';
+                    }
 
-         return mapReturnData;
+                    if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('phone')){
+                         fieldType = 'phone';
+                    }
 
-    }  
+                    if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('checkbox')){
+                         fieldType = 'boolean';
+                    }
+
+                    if(ERLMeta.SObjectField__r.DataType.containsIgnoreCase('percent')){
+                         fieldType = 'percent';
+                    }
+                    
+                         
+                    jsonGen.writeStartObject();
+               
+                    jsonGen.writeStringField('label', ERLMeta.SObjectField__r.MasterLabel);
+               
+                    jsonGen.writeStringField('type',  fieldType);
+               
+                    jsonGen.writeStringField('fieldName', ERLMeta.SObjectField__r.QualifiedAPIName);
+               
+                    if(ERLMeta.Editable__c){
+                         jsonGen.writeStringField('editable', 'true' );
+                    }
+               
+                    jsonGen.writeEndObject();
+               }
+
+               jsonGen.writeEndArray();
+
+               soqlStatement = soqlStatement.removeEnd(',');
+
+               system.debug('soqlStatement is ' + soqlStatement);
+
+               ERL_Meta__mdt ERLDatawhereclause = [SELECT SObjectField__r.QualifiedAPIName, SObject__r.QualifiedAPIName
+                                                                 FROM ERL_Meta__mdt
+                                                                 WHERE SObject__r.MasterLabel =  :metadataName
+                                                                 AND Parent_SObject__r.QualifiedAPIName = :parentObject];
+
+               soqlStatement += ' FROM ' + ERLDatawhereclause.SObject__r.QualifiedAPIName + ' WHERE ' + ERLDatawhereclause.SObjectField__r.QualifiedAPIName + ' = :getId';
+               
+                         
+               List<sObject> sobjList = Database.query(soqlStatement);
+
+          
+               String dataColumns = jsonGen.getAsString();
+
+               sobjectAPIName += ';' +  ERLDatawhereclause.SObjectField__r.QualifiedAPIName;
+
+               mapAllData.put(dataColumns, sobjList);
+
+               // New Map defined key = Contact, value is the map of the columns and data
+               mapReturnData.put(sobjectAPIName, mapAllData);
+
+               system.debug('mapAllData is ' + mapAllData);
+          
+          } catch (Exception e){
+               system.debug(e.getMessage());
+          }
+          
+          return mapReturnData;
+    }
 }
