@@ -2,6 +2,11 @@
 
 This simple LWC (Lightning Web Component) can be loaded onto any object and display a related datatable with editable fields. All controlled via Custom Meta Data and the 'Edit Page' Lightning Page Builder. 
 
+<a href="https://githubsfdeploy.herokuapp.com?owner=HYPHENATE&repo=EditableRelatedList">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
 ## Verion Control
 
 ### 1.0 - Initial release
