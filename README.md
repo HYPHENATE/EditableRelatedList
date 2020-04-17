@@ -12,13 +12,10 @@ This simple LWC (Lightning Web Component) can be loaded onto any object and disp
  - Ability to define if a field is Editible
  - Define the order fields are displayed within the Datatable
  
-### 1.1 - Initial release
- - Support for both Standard and Custom Objects
- - User defined Related List Label
- - Picklist for selection of Relatd List Icon
- - Ability to define field Visibility within the Datatable
- - Ability to define if a field is Editible
- - Define the order fields are displayed within the Datatable
+### 1.1 - Size and New Child Record Functionality
+ - Allows for toggling the 'New' record button on the Related List 
+ - Allows the Height of the component to be set on the Lightning Page
+
 
 ## Part 1: Installation
 
