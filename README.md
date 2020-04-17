@@ -23,11 +23,10 @@ This simple LWC (Lightning Web Component) can be loaded onto any object and disp
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
-<br/>
- <br/>1 - Click the above link to 'Deploy to Salesforce'
- <br/>2 - Select the type of evironment to 'Deploy to'
- <br/>3 - Hit 'Login to Salesforce' in the top-right, and enter your credentials
- <br/>4 - Git 'Deploy' in the top-right
+ - Click the above link to 'Deploy to Salesforce'
+ - Select the type of evironment to 'Deploy to'
+ - Hit 'Login to Salesforce' in the top-right, and enter your credentials
+ - Git 'Deploy' in the top-right
 
 ## Part 2: Configuration
 
