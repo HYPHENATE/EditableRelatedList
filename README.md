@@ -15,7 +15,7 @@ This simple LWC (Lightning Web Component) can be loaded onto any object and disp
 ### 1.1 - Size and New Child Record Functionality
  - Allows for toggling the 'New' record button on the Related List 
  - Allows the Height of the component to be set on the Lightning Page
-<img src="https://github.com/HYPHENATE/EditableRelatedList/blob/master/images/Annotation%202020-04-17%20112933.png?raw=true" width="600px"/>
+<img src="https://github.com/HYPHENATE/EditableRelatedList/blob/master/images/Annotation%202020-04-17%20112933.png?raw=true" width="700px"/>
 
 ## Part 1: Installation
 
