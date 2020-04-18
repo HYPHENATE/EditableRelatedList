@@ -2,6 +2,7 @@
  * @description     test class for ERLController
  * @author          daniel@hyphen8.com
  * @date            15/04/2020
+ * @group           Tests
 */
 @isTest
 public with sharing class ERLController_Test {

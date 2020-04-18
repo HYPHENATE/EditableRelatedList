@@ -2,6 +2,7 @@
  * @description     Controller class for the LWC Editable Related List Component
  * @author          phil@hyphen8.com / david.bradburn@hyphen8.com
  * @date            06/03/2020
+ * @group           Controller
 */
 
 public with sharing class ERLController {
