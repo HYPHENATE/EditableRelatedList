@@ -1,5 +1,6 @@
 {
-  "orgName": "Demo company",
-  "edition": "Developer",
-  "features": []
+  "orgName": "Editable Related List company",
+  "edition": "Enterprise",
+  "features": [],
+  "settings": {}
 }
