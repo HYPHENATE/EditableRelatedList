@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/HYPHENATE/EditableRelatedList/branch/master/graph/badge.svg)](https://codecov.io/gh/HYPHENATE/EditableRelatedList)
+[![HYPHENATE](https://circleci.com/gh/HYPHENATE/EditableRelatedList.svg?style=svg&&circle-token=297c83f424a06b21dc3b4fa042318223464f67d7)](https://circleci.com/gh/HYPHENATE/EditableRelatedList)
+
 # Editable Related List
 
 This simple LWC (Lightning Web Component) can be loaded onto any object and display a related datatable with editable fields. All controlled via Custom Meta Data and the 'Edit Page' Lightning Page Builder. 
