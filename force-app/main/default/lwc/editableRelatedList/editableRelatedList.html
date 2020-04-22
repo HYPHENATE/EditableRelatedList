@@ -13,11 +13,12 @@
                     <lightning-datatable
                             key-field="Id"
                             data={data}
-                            show-row-number-column   
-                            columns={columns}      
-                            draft-values={draftValues}              
+                            show-row-number-column
+                            columns={columns}
+                            draft-values={draftValues}
                             selected-rows={preSelectedRows}
-                            hide-checkbox-column                  
+                            onrowaction={handleRowAction}
+                            hide-checkbox-column
                             onsave={handleSave}>
                     </lightning-datatable>
                 </template>
@@ -25,6 +26,6 @@
                     <lightning-spinner alternative-text="Loading"></lightning-spinner>
                 </template>
             </div>
-        </div> 
+        </div>
     </lightning-card>
 </template>

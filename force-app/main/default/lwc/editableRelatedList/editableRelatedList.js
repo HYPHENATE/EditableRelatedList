@@ -8,6 +8,9 @@ import { NavigationMixin } from 'lightning/navigation';
 
 // defining columns for lightning data table
 const columns = [];
+const actions = [
+                  { label: 'Show details', name: 'show_details' }
+                ];
 
 export default class EditableRelatedList extends NavigationMixin(LightningElement) {
 
@@ -24,6 +27,7 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
 
     // tracked variables
     columns = columns;
+    action
     data;
     draftValues = [];
     preSelectedRows = [];
@@ -31,6 +35,7 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
     loaded = false;
     setHeightValue;
     wiredResult;
+    recordPageUrl;
 
     // wire service to pull in the data
     @wire(getSObjectInfo, { metadataName: '$metadataName', theId: '$recordId' })
@@ -41,9 +46,14 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
         if(result.data) {
 
            let returnedData = result.data;
+
+           let columnsdata = JSON.parse(returnedData.dataColumns);
+           let actionData = {type:'action', typeAttributes: { rowActions: actions}};
+           columnsdata.push(actionData);
+
            this.sObjectAPIName     = returnedData.childSObjectName;
            this.sObjectParentField = returnedData.parentSObjectField;
-           this.columns            = JSON.parse(returnedData.dataColumns);
+           this.columns            = columnsdata;
            this.data               = returnedData.sObjectData;
            this.loaded             = !this.loaded;
 
@@ -111,8 +121,43 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
             return refreshApex(this.wiredResult);
 
             }).catch(error => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error',
+                        message: 'Update error has occurred - ' + JSON.stringify(error) ,
+                        variant: 'error'
+                    })
+                );
                 console.log('error ' + JSON.stringify(error));// Handle error
         });
         this.loaded = !this.loaded;
     }
+    handleRowAction(event) {
+        const actionName = event.detail.action.name;
+        const row = event.detail.row;
+
+        switch (actionName) {
+            case 'show_details':
+                this.showRowDetails(row);
+                break;
+            default:
+        }
+    }
+    showRowDetails(row){
+
+        let rowId = row.Id;
+
+        this[NavigationMixin.Navigate]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: rowId,
+                actionName: 'view',
+            },
+            state : {
+                nooverride: '1'
+            }
+        });
+
+    }
+
 }
