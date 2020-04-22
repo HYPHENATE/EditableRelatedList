@@ -12,7 +12,7 @@ const columns = [];
 export default class EditableRelatedList extends NavigationMixin(LightningElement) {
 
     // defined api variables
-    @api metadataName; 
+    @api metadataName;
     @api recordId;
     @api strTitle;                  // UI Defined Related List Title
     @api strIcon;                   // UI Defined Related List Icon
@@ -21,58 +21,36 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
     @api defaultvalues;
     @api sObjectAPIName;
     @api sObjectParentField;
-    
+
     // tracked variables
-    @track columns = columns;
-    @track data;
-    @track draftValues = [];
-    @track loaded = false;
-    @track setHeightValue;
+    columns = columns;
+    data;
+    draftValues = [];
+    preSelectedRows = [];
+
+    loaded = false;
+    setHeightValue;
     wiredResult;
-    
+
     // wire service to pull in the data
     @wire(getSObjectInfo, { metadataName: '$metadataName', theId: '$recordId' })
-    sobjectData(result) { 
+    sobjectData(result) {
 
         this.wiredResult = result;
 
         if(result.data) {
-            
-            let myMap = new Map();
-            myMap = result.data;
-            let theColumns;
-            let theData;
-                    
-            for (const [key,value] of Object.entries(myMap)){
-                           
-                this.sObjectAPIName     = key.split(';')[0];            
-                this.sObjectParentField = key.split(';')[1];
-                         
-                let mapData = new Map();
-                mapData = value;
-                
-                for (const [key,value] of Object.entries(mapData)) {
-   
-                    theColumns = key; 
-                    theData = JSON.stringify(value);
-   
-                }
-            }
-   
-            console.log('### The Data : ' + theData);
 
-            this.resizeComponent();
-            console.log('dataload height : ' + this.setHeight);
+           let returnedData = result.data;
+           this.sObjectAPIName     = returnedData.childSObjectName;
+           this.sObjectParentField = returnedData.parentSObjectField;
+           this.columns            = JSON.parse(returnedData.dataColumns);
+           this.data               = returnedData.sObjectData;
+           this.loaded             = !this.loaded;
 
-            let jsonColumns = JSON.parse(theColumns);                                               
-            this.columns = jsonColumns;     
-            var jsonData = JSON.parse(theData);      
-            
-            this.data = jsonData;    
-            this.loaded = !this.loaded;
-                
+
         } else if(result.error) {
             window.console.log(JSON.stringify(result.error));
+
         }
 
     }
@@ -80,17 +58,15 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
     // method to handle the creation of a new record
     createNewRecord() {
         this.defaultvalues = new String(this.sObjectParentField + '=' +  this.recordId);
-       
-        window.console.log('this.sobjectAPIName ' +  this.sObjectAPIName);
-        window.console.log('default values ' + this.defaultvalues);
+
         this[NavigationMixin.Navigate]({
             type: 'standard__objectPage',
-            attributes: {              
-                objectApiName: this.sObjectAPIName,            
+            attributes: {
+                objectApiName: this.sObjectAPIName,
                 actionName: 'new'
             },
             state : {
-                nooverride: '1',              
+                nooverride: '1',
                 defaultFieldValues: this.defaultvalues
             }
         });
@@ -98,18 +74,18 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
 
     // method to handle the resizing of the component
     resizeComponent(){
-        console.log('in resizeComoponent' + this.setHeight);
-        // Keeping correct height following save 
+
+        // Keeping correct height following save
         if(this.setHeight == null || this.setHeight == '' || this.setHeight == 'undefined'){
             this.setHeightValue = 'Height: 250px';
         } else {
-            this.setHeightValue = 'Height:' + this.setHeight; 
+            this.setHeightValue = 'Height:' + this.setHeight;
         }
     }
 
     //method to hande the save
     handleSave(event) {
-        
+
         let draftValues = event.detail.draftValues;
 
         const recordInputs = event.detail.draftValues.slice().map(draft => {
@@ -118,7 +94,7 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
         });
 
         const promises = recordInputs.map(recordInput => updateRecord(recordInput));
-    
+
         Promise.all(promises).then(objectRecs => {
             console.log('in here');
             this.dispatchEvent(
@@ -138,5 +114,5 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
                 console.log('error ' + JSON.stringify(error));// Handle error
         });
         this.loaded = !this.loaded;
-    }  
+    }
 }
