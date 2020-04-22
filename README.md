@@ -35,8 +35,15 @@ This simple LWC (Lightning Web Component) can be loaded onto any object and disp
 
 ## Part 2: Configuration
 
-TODO - Include step by step guidance on how to configure the application
+Once installed, follow the <a href="https://github.com/HYPHENATE/EditableRelatedList/blob/master/Editable%20Related%20List%20-%20Configuration.docx?raw=true">Configuration Guide</a> for steps on configuring Editable Related Lists. In summary, the following actions are required: 
+ 
+ - Create Custom MetaData records for desired Editable Related Lists
+ - Add the Editable Related List component to the Parent Object Lightning Record Page
+ - Assign Permissions Set to desired users 
+   - Alternatively, updated Profiles to have access to the ERL components
 
 ## Part 3: Limitations
 
-TODO - Include any details of know limitations like handling of Lookup fields in a Lightning DataTable
+ - Rollup Summary fields display blank field within the component when included
+ - Lookup Fields do not work with the component
+ - Compound fields can not be edited (eg: Contact Full Name)
