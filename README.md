@@ -44,6 +44,13 @@ Once installed, follow the <a href="https://github.com/HYPHENATE/EditableRelated
 
 ## Part 3: Limitations
 
+### Functional Limitations
+ - Picklist Fields
+   - These can be used, but there is no list of Picklist Options presented. Simply Enter the desired Picklist value, and this will be saved against the record. Ensure to use correct picklist values
+ - Multi-Select Picklist Fields
+   - These can be used, but there is no list of Picklist Options presented. Simply Enter the desired Picklist values, and this will be saved against the record. Ensure to use correct picklist values and syntax when entering these, ie: Option 1;Option 2; Option 3
+
+### NON-Functional Limitations
  - Rollup Summary fields display blank field within the component when included
  - Lookup Fields do not work with the component
  - Compound fields can not be edited (eg: Contact Full Name)
