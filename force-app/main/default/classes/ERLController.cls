@@ -21,6 +21,10 @@ public with sharing class ERLController {
            ERLSObjectWrapper erlSObjectWrapper = new ERLSObjectWrapper();
            try {
 
+                if(metadataName == null ||  theId == null) {
+                     return erlSObjectWrapper;
+                }
+
                 String sobjectAPIName;
 
                 String getId = theId;
@@ -122,7 +126,9 @@ public with sharing class ERLController {
 
 
            } catch (Exception e){
-                system.debug(e.getMessage());
+               erlSObjectWrapper.errorMessage = e.getMessage();
+               return erlSObjectWrapper;
+
            }
 
            return erlSObjectWrapper;
@@ -138,6 +144,10 @@ public with sharing class ERLController {
         public String dataColumns;
         @AuraEnabled
         public List<sObject> sObjectData;
+        @AuraEnabled
+        public static string errorMessage;
+
+
 
      }
 
