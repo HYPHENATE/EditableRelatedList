@@ -145,7 +145,7 @@ public with sharing class ERLController {
         @AuraEnabled
         public List<sObject> sObjectData;
         @AuraEnabled
-        public static string errorMessage;
+        public string errorMessage;
 
 
 
