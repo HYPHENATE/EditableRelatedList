@@ -20,6 +20,10 @@ This simple LWC (Lightning Web Component) can be loaded onto any object and disp
  - Allows the Height of the component to be set on the Lightning Page
 <img src="https://github.com/HYPHENATE/EditableRelatedList/blob/master/images/Annotation%202020-04-17%20112933.png?raw=true" width="700px"/>
 
+### 1.2 - View Records and Error Feedback
+ - 'View Details' link takes you to each child record
+ - Invalid Picklist / Multi-Select Picklist Values entered prompt Error Toast Feedback
+
 ## Part 1: Installation
 
 <a href="https://githubsfdeploy.herokuapp.com?owner=HYPHENATE&repo=EditableRelatedList">
