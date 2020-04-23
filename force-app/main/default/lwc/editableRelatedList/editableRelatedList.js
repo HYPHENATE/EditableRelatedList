@@ -36,6 +36,7 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
     setHeightValue;
     wiredResult;
     recordPageUrl;
+    error = [];
 
     // wire service to pull in the data
     @wire(getSObjectInfo, { metadataName: '$metadataName', theId: '$recordId' })
@@ -121,14 +122,15 @@ export default class EditableRelatedList extends NavigationMixin(LightningElemen
             return refreshApex(this.wiredResult);
 
             }).catch(error => {
+
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
-                        message: 'Update error has occurred - ' + JSON.stringify(error) ,
+                        message : 'Update failed please check data entered',
                         variant: 'error'
                     })
                 );
-                console.log('error ' + JSON.stringify(error));// Handle error
+                this.loaded = !this.loaded;
         });
         this.loaded = !this.loaded;
     }
