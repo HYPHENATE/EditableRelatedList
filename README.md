@@ -5,6 +5,9 @@
 
 This simple LWC (Lightning Web Component) can be loaded onto any object and display a related datatable with editable fields. All controlled via Custom Meta Data and the 'Edit Page' Lightning Page Builder. 
 
+<img src="https://github.com/HYPHENATE/EditableRelatedList/blob/master/images/ERL1.png?raw=true" width="700px"/>
+
+
 ## Verion Control
 
 ### 1.0 - Initial release
